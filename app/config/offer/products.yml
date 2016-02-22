@@ -1,0 +1,7 @@
+parameters:
+    site_config:
+        products:
+            product1:
+                name: Test product
+            product2:
+                name: Test Produt 2

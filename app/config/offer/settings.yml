@@ -1,0 +1,13 @@
+imports:
+    - { resource: order_processors.yml }
+    - { resource: pixel_tracking.yml}
+    - { resource: products.yml }
+    - { resource: site_text.yml }
+    - { resource: site_pages.yml }
+
+# settings:
+#   Application configuration settings.
+
+parameters:
+    site_config:
+        settings: []

@@ -1,0 +1,13 @@
+# site_text:
+#   String variables used to populate certain pages throughout the site  and
+#   in emails. Make sure these values are human friendly as they will be seen
+#   by site visitors.
+
+parameters:
+    site_config:
+        site_text:
+            offer_name: 'Sample Offer'
+            page_title: 'Example Site'
+            site_url: 'www.examplesite.com'
+            phone_number: '1(800)Tol-Free'
+            support_email: 'support@123orderme.com'

@@ -1,0 +1,28 @@
+# site_pages
+#    Configuration values that determin the path traffic takes through the site. Here we configure
+#    the pages available in the funnel. The first page in the collection will be the first page
+#    page loaded on the site. Pages are identified by their route names. Any nested variables will
+#    be available to the page.
+#
+#    page config options:
+#
+#      forward_route: route_name
+#           The name of the route a user is sent to when moving forward. This would also be used as
+#           the form action post url when a user fills out a form.
+#
+#      exit_route: route_name
+#           The name of a route the user should be sent to if they bounce.
+#
+#      load_forms: {'form_one', 'form_two'}
+#           An Array of forms to be made available for display.
+#
+#       show_pixels: {'google_analytics.ua', 'cake.sitewide'}
+parameters:
+    site_pages:
+        squeeze_page:
+            page_tab_title: 'Welcom Page'
+            page_template: 'squeeze.html.twig'
+            forward_page: pitch_main
+            exit_page: early_exit
+            page_forms: ['partial_lead']
+            page_pixels: ['cake.primary']

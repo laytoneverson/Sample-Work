@@ -1,0 +1,17 @@
+services:
+    app.pixel_tracking:
+        class: AppBundle\Services\PixelTrackingService
+        arguments:
+            - "@=parameter('pixel_tracking')"
+            - '@templating'
+
+    app.site_pages:
+        class: AppBundle\Services\SitePagesService
+        arguments:
+            - '@router'
+            - '@app.pixel_tracking'
+            - "@=parameter('traffic_funnel')"
+
+#    service_name:
+#        class: AppBundle\Directory\ClassName
+#        arguments: ["@another_service_name", "plain_value", "%parameter_name%"]
