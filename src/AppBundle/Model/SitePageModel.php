@@ -2,6 +2,8 @@
 
 namespace AppBundle\Model;
 
+use AppBundle\Services\PixelTrackingService;
+
 class SitePageModel
 {
     /**
@@ -39,9 +41,36 @@ class SitePageModel
      */
     private $pagePixels;
 
-    public function __construct(array $pageConfig)
+    /**
+     * @var string
+     */
+    private $pageTabTitle;
+
+    /**
+     * @var string
+     */
+    private $pageTemplate;
+
+    public function __construct(array $pageConfig = null)
     {
-        //Set config vars
+        if (null !== $pageConfig) {
+            $this->applyPageConfig($pageConfig);
+        }
+    }
+
+    private function applyPageConfig(array $pageConfig)
+    {
+        $this->setPageTabTitle(isset($pageConfig['page_tab_title']) ? $pageConfig['page_tab_title'] : '');
+        $this->setPageTemplate(isset($pageConfig['page_template']) ? $pageConfig['page_template'] : '');
+        $this->setForwardPage(isset($pageConfig['forward_page']) ? $pageConfig['forward_page'] : '');
+        $this->setExitPage(isset($pageConfig['exit_page']) ? $pageConfig['exit_page'] : '');
+        $this->setPageForms(isset($pageConfig['page_forms']) ? $pageConfig['page_forms'] : []);
+        $this->setPagePixels(isset($pageConfig['page_pixels']) ? $pageConfig['page_pixels'] : []);
+    }
+
+    public function configureTrackingPixels(PixelTrackingService $pixelTrackingService)
+    {
+
     }
 
     /**
@@ -195,6 +224,44 @@ class SitePageModel
     public function addPagePixels($pagePixel)
     {
         $this->pagePixels[] = $pagePixel;
+
+        return $this;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getPageTabTitle()
+    {
+        return $this->pageTabTitle;
+    }
+
+    /**
+     * @param string $pageTabTitle
+     * @return SitePageModel
+     */
+    public function setPageTabTitle($pageTabTitle)
+    {
+        $this->pageTabTitle = $pageTabTitle;
+
+        return $this;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getPageTemplate()
+    {
+        return $this->pageTemplate;
+    }
+
+    /**
+     * @param mixed $pageTemplate
+     * @return SitePageModel
+     */
+    public function setPageTemplate($pageTemplate)
+    {
+        $this->pageTemplate = $pageTemplate;
 
         return $this;
     }

@@ -2,10 +2,24 @@
 
 namespace AppBundle\Services;
 
+use AppBundle\Model\PixelModel;
 use Symfony\Component\Templating\EngineInterface;
 
-class PixelTrackingService
+class TrackingPixelService
 {
+    public function decoratePixel($pixelName, array $pixelVarValues)
+    {
+        $pixel = new PixelModel();
+        $pixelConfig = $this->pixels[$pixelName];
+
+        /*
+         * Loop through available pixel variables. Set pixel with configured variable, use default if its not,
+         * throw an exception if no default is set.
+         */
+        foreach ($pixelConfig['variables'] as $varName => $varConfig) {
+            if (isset())
+        }
+    }
     /**
      * Array containing pixels defined in the app/config/offer/pixel_tracking.yml file.
      *
@@ -80,15 +94,31 @@ class PixelTrackingService
         return $newPixels;
     }
 
+    /**
+     * Retrieve all configured pixels.
+     *
+     * @return array
+     */
     public function getPixels()
     {
         return $this->pixels;
     }
 
+    /**
+     * Get html markup of a pixel rendered with values passed through the $pixelVariables
+     * array.
+     *
+     * @param string $pixelName
+     * @param array $pixelVariables
+     * @return string
+     */
     public function renderPixel($pixelName, $pixelVariables = array())
     {
+        $pixelMarkup = '';
 
+        return $pixelMarkup;
     }
+
 
     public function setPixelVariable($pixelName, $variableName, $newValue)
     {

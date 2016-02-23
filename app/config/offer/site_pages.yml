@@ -6,17 +6,28 @@
 #
 #    page config options:
 #
-#      forward_route: route_name
+#      page_tab_title
+#           Title to show in the browser's tab
+#
+#      page_template
+#           Template to file to render the page with. Templates live in app/Resources/views/default
+#
+#      forward_page
 #           The name of the route a user is sent to when moving forward. This would also be used as
 #           the form action post url when a user fills out a form.
 #
-#      exit_route: route_name
+#      exit_page
 #           The name of a route the user should be sent to if they bounce.
 #
-#      load_forms: {'form_one', 'form_two'}
-#           An Array of forms to be made available for display.
+#      page_forms
+#           An Array of forms to be made available for display on the page
 #
-#       show_pixels: {'google_analytics.ua', 'cake.sitewide'}
+#      page_pixels
+#           Pixels to be displayed on the page. Configure with a provier.pixel_name scalar
+#           mapped to a sequence of variables and their values.
+#
+#      page_overrides
+#           Apply page overide to configuration based on version
 parameters:
     site_pages:
         squeeze_page:
@@ -24,5 +35,20 @@ parameters:
             page_template: 'squeeze.html.twig'
             forward_page: pitch_main
             exit_page: early_exit
-            page_forms: ['partial_lead']
-            page_pixels: ['cake.primary']
+            #page_forms: ['partial_lead']
+            page_pixels:
+                cake.primary: { campaign_id: 123, action_event: 'page-view'}
+                google.analytics: { }
+            #version_overrides:
+            #    v2: 'squeeze_page_b'
+
+        checkout_page:
+            page_tab_title: 'Welcom Page'
+            page_template: 'squeeze.html.twig'
+            forward_page: upsell_one
+            exit_page: downsale_one
+            page_forms: ['payment']
+            page_pixels:
+                cake.primary: { campaign_id: 123, action_event: 'page-view'}
+                google.analytics: { }
+

@@ -49,3 +49,11 @@ parameters:
                             - 'thank_you_page'
                             - 'page_view'
 
+            convenversion_main:
+                template: cake.conversion.html.twig
+
+            convenversion_up1:
+                template: cake.conversion.html.twig
+
+            convenversion_up2:
+                template: cake.conversion.html.twig

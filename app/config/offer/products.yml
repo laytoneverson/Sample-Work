@@ -3,5 +3,8 @@ parameters:
         products:
             product1:
                 name: Test product
+                one_click: false
             product2:
-                name: Test Produt 2
+                name: Nature Clense
+                Price: 19.47
+                one_click: true

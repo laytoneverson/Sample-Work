@@ -4,10 +4,14 @@ imports:
     - { resource: products.yml }
     - { resource: site_text.yml }
     - { resource: site_pages.yml }
+    - { resource: version_overrides.yml }
 
 # settings:
 #   Application configuration settings.
 
 parameters:
     site_config:
-        settings: []
+        settings:
+           site_versions:
+               default: { entry_url: ''}
+               v2: { entry_url: 'get-it-now'}

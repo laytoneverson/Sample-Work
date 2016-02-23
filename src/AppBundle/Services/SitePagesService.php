@@ -4,6 +4,12 @@ namespace AppBundle\Services;
 use AppBundle\Model\SitePageModel;
 use Symfony\Bundle\FrameworkBundle\Routing\Router;
 
+/**
+ * Prepare
+ *
+ * Class SitePagesService
+ * @package AppBundle\Services
+ */
 class SitePagesService
 {
     /**
@@ -31,26 +37,37 @@ class SitePagesService
 
     public function __construct(Router $router, PixelTrackingService $pixelTrackingService, array $sitePagesConfig)
     {
-        $this->sitePages = $sitePagesConfig;
+        $this->sitePagesConfig = $sitePagesConfig;
         $this->router = $router;
         $this->pixelTrackingService = $pixelTrackingService;
     }
 
     /**
-     * Pull application configuration parameters from the traffic_funnel.yml file to determine
-     * links and assets used in the current page to move the customer through the traffic funnel.
+     * Apply site version over rides to page configuration.
      *
-     * @param string $funnelPage
-     * @return array
+     * @param $siteVersion
      */
-    public function decoratePage($funnelPage = '')
+    public function applyConfigOverrides($siteVersion)
     {
-        if (empty($this->sitePages[$funnelPage])) {
+
+    }
+
+    /**
+     * Create anew SitePageModel, apply configuration parameters, and prepare it for render. Markup is not rendered
+     * yet.
+     *
+     * @param string $pageName
+     * @return SitePageModel
+     */
+    public function decoratePage($pageName = '')
+    {
+        if (empty($this->sitePagesConfig[$pageName])) {
             throw new \RuntimeException('Page configuration not found!');
         }
 
-        $pageConfig = $this->sitePages[$funnelPage];
-        $sitePage = new SitePageModel($this->sitePages[$funnelPage]);
+        $pageConfig = $this->sitePagesConfig[$pageName];
+        $sitePage = new SitePageModel($this->sitePagesConfig[$pageName]);
+        $sitePage->configureTrackingPixels($this->pixelTrackingService);
 
         return $sitePage;
     }
