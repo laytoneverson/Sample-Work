@@ -64,13 +64,6 @@ class SitePageModel
         $this->setPageTemplate(isset($pageConfig['page_template']) ? $pageConfig['page_template'] : '');
         $this->setForwardPage(isset($pageConfig['forward_page']) ? $pageConfig['forward_page'] : '');
         $this->setExitPage(isset($pageConfig['exit_page']) ? $pageConfig['exit_page'] : '');
-        $this->setPageForms(isset($pageConfig['page_forms']) ? $pageConfig['page_forms'] : []);
-        $this->setPagePixels(isset($pageConfig['page_pixels']) ? $pageConfig['page_pixels'] : []);
-    }
-
-    public function configureTrackingPixels(PixelTrackingService $pixelTrackingService)
-    {
-
     }
 
     /**

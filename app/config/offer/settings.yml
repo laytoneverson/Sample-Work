@@ -1,6 +1,6 @@
 imports:
     - { resource: order_processors.yml }
-    - { resource: pixel_tracking.yml}
+    - { resource: tracking_pixels.yml}
     - { resource: products.yml }
     - { resource: site_text.yml }
     - { resource: site_pages.yml }

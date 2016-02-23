@@ -1,6 +1,7 @@
 <?php
 
 namespace AppBundle\Services;
+
 use AppBundle\Model\SitePageModel;
 use Symfony\Bundle\FrameworkBundle\Routing\Router;
 
@@ -26,20 +27,20 @@ class SitePagesService
     private $router;
 
     /**
-     * @var PixelTrackingService
+     * @var TrackingPixelService
      */
-    private $pixelTrackingService;
+    private $trackingPixelService;
 
     /**
      * @var SitePageModel
      */
     private $currentSitePage;
 
-    public function __construct(Router $router, PixelTrackingService $pixelTrackingService, array $sitePagesConfig)
+    public function __construct(Router $router, TrackingPixelService $trackingPixelService, array $sitePagesConfig)
     {
         $this->sitePagesConfig = $sitePagesConfig;
         $this->router = $router;
-        $this->pixelTrackingService = $pixelTrackingService;
+        $this->trackingPixelService = $trackingPixelService;
     }
 
     /**
@@ -67,7 +68,10 @@ class SitePagesService
 
         $pageConfig = $this->sitePagesConfig[$pageName];
         $sitePage = new SitePageModel($this->sitePagesConfig[$pageName]);
-        $sitePage->configureTrackingPixels($this->pixelTrackingService);
+
+        foreach($pageConfig['page_pixels'] as $pixelName => $pagePixelVariables) {
+            $sitePage->addPagePixels($this->trackingPixelService->decoratePixel($pixelName, $pagePixelVariables));
+        }
 
         return $sitePage;
     }

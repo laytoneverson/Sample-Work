@@ -15,7 +15,7 @@
 #                   default: 'default value'                # Default value
 
 parameters:
-    pixel_tracking:
+    tracking_pixels:
         google:
             analytics:
                 template: google.analytics.html.twig

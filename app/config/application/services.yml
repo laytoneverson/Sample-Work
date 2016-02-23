@@ -1,8 +1,8 @@
 services:
     app.pixel_tracking:
-        class: AppBundle\Services\PixelTrackingService
+        class: AppBundle\Services\TrackingPixelService
         arguments:
-            - "@=parameter('pixel_tracking')"
+            - "@=parameter('tracking_pixels')"
             - '@templating'
 
     app.site_pages:

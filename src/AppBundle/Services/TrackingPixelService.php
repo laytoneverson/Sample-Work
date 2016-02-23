@@ -7,46 +7,21 @@ use Symfony\Component\Templating\EngineInterface;
 
 class TrackingPixelService
 {
-    public function decoratePixel($pixelName, array $pixelVarValues)
-    {
-        $pixel = new PixelModel();
-        $pixelConfig = $this->pixels[$pixelName];
-
-        /*
-         * Loop through available pixel variables. Set pixel with configured variable, use default if its not,
-         * throw an exception if no default is set.
-         */
-        foreach ($pixelConfig['variables'] as $varName => $varConfig) {
-            if (isset())
-        }
-    }
     /**
      * Array containing pixels defined in the app/config/offer/pixel_tracking.yml file.
      *
-     *  $pixels['provider_name.pixel_name'] = [
-     *      'template' => 'provider.pixel.html.twig',
-     *      'variables' => [
-     *          'variable_name' => [
-     *              'options' => [],
-     *              'default' => '',
-     *              'value' => null,
-     *              'required' => true | false,
-     *          ]
-     *      ]
-     *  ]
-     *
      * @var array $pixels
      */
-    private $pixels;
+    private $applicationPixels;
 
     /**
      * @var EngineInterface $twig
      */
     private $twig;
 
-    public function __construct(array $pixels, EngineInterface $twig)
+    public function __construct(array $pixelConfig, EngineInterface $twig)
     {
-        $this->pixels = $this->initPixelArray($pixels);
+        $this->applicationPixels = $this->initPixelConfiguration($pixelConfig);
         $this->twig = $twig;
     }
 
@@ -57,7 +32,7 @@ class TrackingPixelService
      * @param $pixelConfigArray
      * @return array
      */
-    private function initPixelArray($pixelConfigArray)
+    private function initPixelConfiguration($pixelConfigArray)
     {
         $newPixels = array();
         foreach($pixelConfigArray as $providerName => $pixels) {
@@ -94,15 +69,6 @@ class TrackingPixelService
         return $newPixels;
     }
 
-    /**
-     * Retrieve all configured pixels.
-     *
-     * @return array
-     */
-    public function getPixels()
-    {
-        return $this->pixels;
-    }
 
     /**
      * Get html markup of a pixel rendered with values passed through the $pixelVariables
@@ -119,21 +85,44 @@ class TrackingPixelService
         return $pixelMarkup;
     }
 
-
-    public function setPixelVariable($pixelName, $variableName, $newValue)
-    {
-
-    }
-
     /**
-     * Updates pixel variable values with new values passed in array. Any variables
-     * not specified in $newValues array are left untouched.
+     * Create and decorate a tracking pixel to prepare it for rendering.
      *
-     * @param string $pixelName
-     * @param array $newValues
+     * @param $pixelName
+     * @param array $configValues
+     * @return PixelModel
      */
-    public function setPixelVariables($pixelName, array $newValues)
+    public function decoratePixel($pixelName, array $configValues)
     {
+        if(empty($pixelConfig = $this->applicationPixels[$pixelName])) {
+            throw new \RuntimeException("Pixel configuration not found");
+        }
 
+        $pixel = new PixelModel();
+        $pixel->setPixelTemplate($pixelConfig['template']);
+        $pixel->setPixelName($pixelName);
+
+        foreach ($pixelConfig['variables'] as $variableName => $variableConfig) {
+            if (isset($configValues[$variableName])) {
+                if (
+                    isset($variableConfig['options'])
+                    && count($variableConfig['options']) >= 1
+                    && !in_array($configValues[$variableName], $variableConfig['options'])
+                ) {
+                    throw new \RuntimeException('The value being set for $variableName on the $pixelName pixel is invalid');
+                }
+                $pixel->addPixelVar($variableName, $configValues[$variableName]);
+            } else {
+                if (!empty($variableConfig['default'])) {
+                    $pixel->addPixelVar($variableName, $variableConfig['default']);
+                } else {
+                    if ($variableConfig['required']) {
+                        throw new \RuntimeException("The $variableName is required for the $pixelName pixel");
+                    }
+                }
+            }
+        }
+
+        return $pixel;
     }
 }
