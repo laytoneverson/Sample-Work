@@ -2,7 +2,11 @@
 
 namespace AppBundle\Form\Type;
 
-class CardExpirationMonthType
+use Symfony\Component\Form\AbstractType;
+use Symfony\Component\OptionsResolver\OptionsResolver;
+use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
+
+class CardExpirationMonthType extends AbstractType
 {
     private $expMonths = [
         '01' => '01 - January',
@@ -18,4 +22,16 @@ class CardExpirationMonthType
         '11' => '11 - November',
         '12' => '12 - December',
     ];
+
+    public function configureOptions(OptionsResolver $resolver)
+    {
+        $resolver->setDefaults([
+            'choices' => $this->expMonths,
+        ]);
+    }
+
+    public function getParent()
+    {
+        return ChoiceType::class;
+    }
 }

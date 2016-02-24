@@ -21,6 +21,14 @@ services:
         arguments: ['%states%']
         tags: [{name: form.type }]
 
+    app.form.type.card_expiration_month:
+        class: AppBundle\Form\Type\CardExpirationMonthType
+        tags: [{name: form.type}]
+
+    app.form.type.card_expiration_year:
+        class: AppBundle\Form\Type\CardExpirationYear
+        tags: [{name: form.type}]
+
     #######################
     #   Twig Extensions   #
     #######################
