@@ -69,7 +69,6 @@ class TrackingPixelService
         return $newPixels;
     }
 
-
     /**
      * Get html markup of a pixel rendered with values passed through the $pixelVariables
      * array.
