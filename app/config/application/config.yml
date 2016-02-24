@@ -5,6 +5,7 @@ imports:
     - { resource: services.yml }
     - { resource: database.yml }
     - { resource: twig.yml }
+    - { resource: states.yml }
 
 parameters:
     locale: en

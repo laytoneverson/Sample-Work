@@ -2,7 +2,11 @@
 
 namespace AppBundle\Form\Type;
 
-class StateType
+use Symfony\Component\Form\AbstractType;
+use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
+use Symfony\Component\OptionsResolver\OptionsResolver;
+
+class StateType extends AbstractType
 {
     private $states;
 
@@ -11,5 +15,17 @@ class StateType
         foreach($states as $abbreviation => $state) {
             $this->states[$abbreviation] = $state['name'];
         }
+    }
+
+    public function configureOptions(OptionsResolver $resolver)
+    {
+        $resolver->setDefaults([
+            'choices' => $this->states,
+        ]);
+    }
+
+    public function getParent()
+    {
+        return ChoiceType::class;
     }
 }

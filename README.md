@@ -39,4 +39,4 @@ The offer base page includes:
 
 *Configuration Notes*
 
-## Implementing Page Designes
+## Implementing Page Designs

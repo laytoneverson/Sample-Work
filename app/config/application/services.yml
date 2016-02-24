@@ -2,7 +2,7 @@ services:
     app.pixel_tracking:
         class: AppBundle\Services\TrackingPixelService
         arguments:
-            - "@=parameter('tracking_pixels')"
+            - "%tracking_pixels%"
             - '@templating'
 
     app.site_pages:
@@ -10,7 +10,21 @@ services:
         arguments:
             - '@router'
             - '@app.pixel_tracking'
-            - "@=parameter('traffic_funnel')"
+            - "%site_pages%"
+
+    ##################
+    #   FORM TYPES   #
+    ##################
+
+    app.form.type.state:
+        class: AppBundle\Form\Type\StateType
+        arguments: ['%states%']
+        tags: [{name: form.type }]
+
+    #######################
+    #   Twig Extensions   #
+    #######################
+
 
 #    service_name:
 #        class: AppBundle\Directory\ClassName
