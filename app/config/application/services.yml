@@ -29,6 +29,10 @@ services:
         class: AppBundle\Form\Type\CardExpirationYear
         tags: [{name: form.type}]
 
+    app.form.type.address:
+        class: AppBundle\Form\AddressType
+        tags: [{name: form.type}]
+
     #######################
     #   Twig Extensions   #
     #######################
