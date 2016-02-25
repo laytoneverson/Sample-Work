@@ -43,22 +43,24 @@ class TrackingPixelService
                     : $pixelName.".html.twig";
                 $newVariables = [];
 
-                foreach($pixelConfig['variables'] as $key => $variableOptions) {
-                    $variable = [
-                        'options' => isset($variableOptions['options'])
-                            ? $variableOptions['options']
-                            : null,
-                        'default' => isset($variableOptions['default'])
-                            ? $variableOptions['default']
-                            : null,
-                        'value' => isset($variableOptions['default'])
-                            ? $variableOptions['default']
-                            : null,
-                        'required' => isset($variableOptions['required'])
-                            ? $variableOptions['required']
-                            : null,
-                    ];
-                    $newVariables[$key] = $variable;
+                if (isset($pixelConfig['variables'])) {
+                    foreach($pixelConfig['variables'] as $key => $variableOptions) {
+                        $variable = [
+                            'options' => isset($variableOptions['options'])
+                                ? $variableOptions['options']
+                                : null,
+                            'default' => isset($variableOptions['default'])
+                                ? $variableOptions['default']
+                                : null,
+                            'value' => isset($variableOptions['default'])
+                                ? $variableOptions['default']
+                                : null,
+                            'required' => isset($variableOptions['required'])
+                                ? $variableOptions['required']
+                                : null,
+                        ];
+                        $newVariables[$key] = $variable;
+                    }
                 }
 
                 $newPixels[$pixelName]['template'] = $pixelTemplate;
