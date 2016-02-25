@@ -5,6 +5,7 @@ imports:
     - { resource: site_text.yml }
     - { resource: site_pages.yml }
     - { resource: version_overrides.yml }
+    - { resource: site_forms.yml }
 
 # settings:
 #   Application configuration settings.
@@ -12,6 +13,4 @@ imports:
 parameters:
     site_config:
         settings:
-           site_versions:
-               default: { entry_url: ''}
-               v2: { entry_url: 'get-it-now'}
+           site_versions: ['default', 'v2']
