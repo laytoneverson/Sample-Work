@@ -10,23 +10,34 @@ use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 use AppBundle\Model\CreditCardModel;
 
-class CreditCardForm extends AbstractType
+class CreditCardType extends AbstractType
 {
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-            ->add('card_number', TextType::class)
-            ->add('expiration_month', CardExpirationMonthType::class)
-            ->add('expiration_year', CardExpirationYear::class)
-            ->add('security_code', TextType::class)
+            ->add('cardNumber', TextType::class,[
+                'label' => $options['show_labels'] ? 'Card Number' : false,
+                'attr' => ['placeholder' => $options['show_placeholders'] ? 'First Name' : null],
+            ])
+            ->add('expirationMonth', CardExpirationMonthType::class,[
+                'label' => $options['show_labels'] ? 'Exp Date' : false,
+            ])
+            ->add('expirationYear', CardExpirationYear::class,[
+                'label' => false,
+            ])
+            ->add('securityCode', TextType::class,[
+                'label' => $options['show_labels'] ? 'CVV' : false,
+                'attr' => ['placeholder' => $options['show_placeholders'] ? '####' : null],
+            ])
         ;
-
     }
 
     public function configureOptions(OptionsResolver $resolver)
     {
         $resolver->setDefaults([
-            'data_class' => CreditCardModel::class
+            'data_class' => CreditCardModel::class,
+            'show_placeholders' => true,
+            'show_labels' => true,
         ]);
     }
 }
