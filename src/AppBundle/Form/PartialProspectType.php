@@ -9,7 +9,7 @@ use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 use AppBundle\Model\PersonModel;
 
-class ProspectType extends AbstractType
+class PartialProspectType extends AbstractType
 {
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
@@ -21,17 +21,6 @@ class ProspectType extends AbstractType
             ->add('lastName', TextType::class, [
                 'label' => $options['show_labels'] ? 'Last Name' : false,
                 'attr' => ['placeholder' => $options['show_placeholders'] ? 'Last Name' : null],
-            ])
-            ->add('shippingAddress', AddressType::class, [
-                'show_labels' => $options['show_labels'],
-                'show_placeholders' => $options['show_placeholders'],
-            ])
-            ->add('phoneNumber', TextType::class, [
-                'label' => $options['show_labels'] ? 'Phone Number' : false,
-                'attr' => [
-                    'placeholder' => $options['show_placeholders'] ? '(###) ###-####' : null,
-                    'class' => 'phone'
-                ],
             ])
             ->add('emailAddress', EmailType::class, [
                 'label' => $options['show_labels'] ? 'Email Address' : false,
