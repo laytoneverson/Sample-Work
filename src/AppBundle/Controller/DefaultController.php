@@ -16,7 +16,21 @@ class DefaultController extends Controller
         // replace this example code with whatever you need
         return $this->render('default/index.html.twig', [
             'base_dir' => realpath($this->getParameter('kernel.root_dir').'/..'),
-            'pixels' => $this->get('app.pixel_tracking')->getPixels(),
         ]);
+    }
+
+    public function displayPageAction(Request $request)
+    {
+
+    }
+
+    public function submitLeadAction(Request $request)
+    {
+
+    }
+
+    public function processOrderAction(Request $request)
+    {
+
     }
 }

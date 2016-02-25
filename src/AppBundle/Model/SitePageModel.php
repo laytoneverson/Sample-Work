@@ -14,6 +14,16 @@ class SitePageModel
     /**
      * @var string
      */
+    private $pageRoute;
+
+    /**
+     * @var string
+     */
+    private $pageHandler;
+
+    /**
+     * @var string
+     */
     private $forwardPage;
 
     /**
@@ -51,6 +61,8 @@ class SitePageModel
      */
     private $pageTemplate;
 
+
+
     public function __construct(array $pageConfig = null)
     {
         if (null !== $pageConfig) {
@@ -64,6 +76,8 @@ class SitePageModel
         $this->setPageTemplate(isset($pageConfig['page_template']) ? $pageConfig['page_template'] : '');
         $this->setForwardPage(isset($pageConfig['forward_page']) ? $pageConfig['forward_page'] : '');
         $this->setExitPage(isset($pageConfig['exit_page']) ? $pageConfig['exit_page'] : '');
+        $this->setPageRoute(isset($pageConfig['page_route']) ? $pageConfig['page_route'] : '');
+        $this->setPageHandler(isset($pageConfig['page_handler']) ? $pageConfig['page_handler'] : 'DisplayPage');
     }
 
     /**
@@ -255,6 +269,43 @@ class SitePageModel
     public function setPageTemplate($pageTemplate)
     {
         $this->pageTemplate = $pageTemplate;
+
+        return $this;
+    }
+
+    /**
+     * @return string
+     */
+    public function getPageRoute()
+    {
+        return $this->pageRoute;
+    }
+
+    /**
+     * @param string $pageRoute
+     * @return SitePageModel
+     */
+    public function setPageRoute($pageRoute)
+    {
+        $this->pageRoute = $pageRoute;
+        return $this;
+    }
+
+    /**
+     * @return string
+     */
+    public function getPageHandler()
+    {
+        return $this->pageHandler;
+    }
+
+    /**
+     * @param string $pageHandler
+     * @return SitePageModel
+     */
+    public function setPageHandler($pageHandler)
+    {
+        $this->pageHandler = $pageHandler;
 
         return $this;
     }

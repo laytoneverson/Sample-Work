@@ -12,6 +12,12 @@
 #      page_template
 #           Template to file to render the page with. Templates live in app/Resources/views/default
 #
+#      page_route
+#           Your pages url after .com, starting with the "/". i.e. /home or /checkout
+#
+#      page_handler
+#           Specify the handler of this page. Options are "DisplayPage", "ProcessOrder", "SubmitLead"
+#
 #      forward_page
 #           The name of the route a user is sent to when moving forward. This would also be used as
 #           the form action post url when a user fills out a form.
@@ -26,12 +32,27 @@
 #           Pixels to be displayed on the page. Configure with a provier.pixel_name scalar
 #           mapped to a sequence of variables and their values.
 #
-#      page_overrides
+#      version_overrides
 #           Apply page overide to configuration based on version
 parameters:
     site_pages:
         squeeze_page:
             page_tab_title: 'Welcom Page'
+            page_route: '/welcome'
+            page_handler: 'DisplayPage'
+            page_template: 'squeeze.html.twig'
+            forward_page: pitch_main
+            exit_page: early_exit
+            #page_forms: ['partial_lead']
+            page_pixels:
+                cake.primary: { campaign_id: 123, action_event: 'page-view'}
+                google.analytics: { }
+            #version_overrides:
+            #    v2: 'squeeze_page_b'
+
+        pitch_page:
+            page_tab_title: 'Welcom'
+            page_route: '/home'
             page_template: 'squeeze.html.twig'
             forward_page: pitch_main
             exit_page: early_exit
@@ -43,6 +64,7 @@ parameters:
             #    v2: 'squeeze_page_b'
 
         checkout_page:
+            page_route: '/checkout'
             page_tab_title: 'Welcom Page'
             page_template: 'squeeze.html.twig'
             forward_page: upsell_one

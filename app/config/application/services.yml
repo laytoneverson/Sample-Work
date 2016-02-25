@@ -12,6 +12,11 @@ services:
             - '@app.pixel_tracking'
             - "%site_pages%"
 
+    app.routing_loader:
+        class: AppBundle\Routing\SitePagesLoader
+        arguments: ['%site_pages%']
+        tags: [{name: routing.loader}]
+
     ##################
     #   FORM TYPES   #
     ##################
@@ -31,6 +36,10 @@ services:
 
     app.form.type.address:
         class: AppBundle\Form\AddressType
+        tags: [{name: form.type}]
+
+    app.form.type.billing_address:
+        class: AppBundle\Form\BillingAddressType
         tags: [{name: form.type}]
 
     #######################
