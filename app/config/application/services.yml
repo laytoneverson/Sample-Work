@@ -17,6 +17,11 @@ services:
         arguments: ['%site_pages%']
         tags: [{name: routing.loader}]
 
+    app.site_pages_listner:
+        class: AppBundle\EventListener\SitePagesListener
+        arguments: ['%site_pages%', '@app.site_pages']
+        tags: [{ name: kernel.event_listener, event: kernel.request }]
+
     ##################
     #   FORM TYPES   #
     ##################

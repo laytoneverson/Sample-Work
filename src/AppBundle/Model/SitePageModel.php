@@ -2,8 +2,6 @@
 
 namespace AppBundle\Model;
 
-use AppBundle\Services\PixelTrackingService;
-
 class SitePageModel
 {
     /**
@@ -61,7 +59,10 @@ class SitePageModel
      */
     private $pageTemplate;
 
-
+    /**
+     * @var string
+     */
+    private $newVersion;
 
     public function __construct(array $pageConfig = null)
     {
@@ -78,6 +79,7 @@ class SitePageModel
         $this->setExitPage(isset($pageConfig['exit_page']) ? $pageConfig['exit_page'] : '');
         $this->setPageRoute(isset($pageConfig['page_route']) ? $pageConfig['page_route'] : '');
         $this->setPageHandler(isset($pageConfig['page_handler']) ? $pageConfig['page_handler'] : 'DisplayPage');
+        $this->setNewVersion(isset($pageConfig['new_version']) ? $pageConfig['new_version'] : 'default');
     }
 
     /**
@@ -306,6 +308,18 @@ class SitePageModel
     public function setPageHandler($pageHandler)
     {
         $this->pageHandler = $pageHandler;
+
+        return $this;
+    }
+
+    public function getNewVersion()
+    {
+        return $this->newVersion;
+    }
+
+    public function setNewVersion($setVersion)
+    {
+        $this->newVersion = $setVersion;
 
         return $this;
     }

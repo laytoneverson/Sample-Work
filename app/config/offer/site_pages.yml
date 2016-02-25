@@ -16,7 +16,7 @@
 #           Your pages url after .com, starting with the "/". i.e. /home or /checkout
 #
 #      page_handler
-#           Specify the handler of this page. Options are "DisplayPage", "ProcessOrder", "SubmitLead"
+#           Specify the handler of this page. Options are "DisplayPage", "ProcessOrder", "SubmitLead", "SetSiteVersion"
 #
 #      forward_page
 #           The name of the route a user is sent to when moving forward. This would also be used as
@@ -36,8 +36,14 @@
 #           Apply page overide to configuration based on version
 parameters:
     site_pages:
+        entry_page:
+            page_route: "/"
+            forward_page: "pitch_page"
+            new_version: "default"
+            page_handler: "SetVersion"
+
         squeeze_page:
-            page_tab_title: 'Welcom Page'
+            page_tab_title: 'Welcome Page'
             page_route: '/welcome'
             page_handler: 'DisplayPage'
             page_template: 'squeeze.html.twig'

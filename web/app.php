@@ -1,6 +1,7 @@
 <?php
 
-use Symfony\Component\HttpFoundation\Request;
+//use Symfony\Component\HttpFoundation\Request;
+use AppBundle\HttpFoundation\OfferPageRequest as Request;
 
 /**
  * @var Composer\Autoload\ClassLoader

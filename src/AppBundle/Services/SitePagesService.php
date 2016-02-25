@@ -60,18 +60,18 @@ class SitePagesService
      * @param string $pageName
      * @return SitePageModel
      */
-    public function decoratePage($pageName = '')
+    public function decoratePage($pageName)
     {
-        if (empty($this->sitePagesConfig[$pageName])) {
-            throw new \RuntimeException('Page configuration not found!');
-        }
-
         $pageConfig = $this->sitePagesConfig[$pageName];
-        $sitePage = new SitePageModel($this->sitePagesConfig[$pageName]);
 
-        foreach($pageConfig['page_pixels'] as $pixelName => $pagePixelVariables) {
-            $sitePage->addPagePixels($this->trackingPixelService->decoratePixel($pixelName, $pagePixelVariables));
+        $sitePage = new SitePageModel($pageConfig);
+        if (isset($pageConfig['page_pixels'])) {
+            foreach($pageConfig['page_pixels'] as $pixelName => $pagePixelVariables) {
+                $sitePage->addPagePixels($this->trackingPixelService->decoratePixel($pixelName, $pagePixelVariables));
+            }
         }
+
+        dump($sitePage);die();
 
         return $sitePage;
     }
