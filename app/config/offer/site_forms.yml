@@ -9,4 +9,3 @@ parameters:
         prospect_form:
             form_class: AppBundle\Form\ProspectType
             model_class: AppBundle\Model\PersonModel
-
