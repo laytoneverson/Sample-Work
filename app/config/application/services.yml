@@ -10,6 +10,7 @@ services:
             - '@router'
             - '@app.pixel_tracking'
             - "%site_pages%"
+            - '@templating'
     app.routing_loader:
         class: AppBundle\Routing\SitePagesLoader
         arguments: ['%site_pages%']

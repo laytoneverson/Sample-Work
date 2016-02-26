@@ -99,7 +99,7 @@ class SitePagesService
         }
 
         if (isset($pageConfig['exit_page'])) {
-            $sitePage->setForwardPageUrl($this->router->getGenerator()->generate($pageConfig['exit_page']));
+            $sitePage->setExitPageUrl($this->router->getGenerator()->generate($pageConfig['exit_page']));
         }
 
         return $sitePage;
