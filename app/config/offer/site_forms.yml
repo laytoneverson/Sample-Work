@@ -1,2 +1,12 @@
 parameters:
     site_forms:
+        checkout_form:
+            form_class: AppBundle\Form\CheckoutType
+            model_class: AppBundle\Model\OrderModel
+        partial_form:
+            form_class: AppBundle\Form\PartialProspectType
+            model_class: AppBundle\Model\PersonModel
+        prospect_form:
+            form_class: AppBundle\Form\ProspectType
+            model_class: AppBundle\Model\PersonModel
+

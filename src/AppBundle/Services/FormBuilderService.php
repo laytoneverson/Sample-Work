@@ -4,9 +4,14 @@ namespace AppBundle\Services;
 
 class FormBuilderService
 {
-    public function __construct()
-    {
+    /**
+     * @var array
+     */
+    protected $siteFormsConfig;
 
+    public function __construct(array $siteFormsConfig)
+    {
+        $this->siteFormsConfig = $siteFormsConfig;
     }
 
 }
