@@ -4,24 +4,24 @@ services:
         arguments:
             - "%tracking_pixels%"
             - '@templating'
-
     app.site_pages:
         class: AppBundle\Services\SitePagesService
         arguments:
             - '@router'
             - '@app.pixel_tracking'
             - "%site_pages%"
-
     app.routing_loader:
         class: AppBundle\Routing\SitePagesLoader
         arguments: ['%site_pages%']
         tags: [{name: routing.loader}]
-
     app.site_pages_listner:
         class: AppBundle\EventListener\SitePagesListener
         arguments: ['%site_pages%', '@app.site_pages']
         tags: [{ name: kernel.event_listener, event: kernel.request }]
-
+    app.storage:
+        class: AppBundle\Services\SessionStorageService
+        arguments: ['@request_stack']
+        
     ##################
     #   FORM TYPES   #
     ##################
