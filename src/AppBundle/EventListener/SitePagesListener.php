@@ -29,7 +29,9 @@ class SitePagesListener
         /** @var \AppBundle\HttpFoundation\OfferPageRequest $request */
         $request = $getResponseEvent->getRequest();
         $route = $request->attributes->get('_route');
-        $sitePage = $this->sitePagesService->buildPage($route);
-        $request->setSitePage($sitePage);
+
+        if ($sitePage = $this->sitePagesService->buildPage($route)) {
+            $request->setSitePage($sitePage);
+        }
     }
 }

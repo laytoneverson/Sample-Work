@@ -4,9 +4,10 @@ namespace AppBundle\Services;
 
 use AppBundle\Model\SitePageModel;
 use Symfony\Bundle\FrameworkBundle\Routing\Router;
+use Symfony\Component\Templating\EngineInterface;
 
 /**
- * Prepare
+ * Prepare and manage the SitePagesModel
  *
  * Class SitePagesService
  * @package AppBundle\Services
@@ -36,11 +37,29 @@ class SitePagesService
      */
     private $currentSitePage;
 
-    public function __construct(Router $router, TrackingPixelService $trackingPixelService, array $sitePagesConfig)
-    {
+    /**
+     * @var
+     */
+    private $twig;
+
+    /**
+     * SitePagesService constructor.
+     * @param Router $router
+     * @param TrackingPixelService $trackingPixelService
+     * @param array $sitePagesConfig
+     * @param EngineInterface $twig
+     */
+
+    public function __construct(
+        Router $router,
+        TrackingPixelService $trackingPixelService,
+        array $sitePagesConfig,
+        EngineInterface $twig
+    ) {
         $this->sitePagesConfig = $sitePagesConfig;
         $this->router = $router;
         $this->trackingPixelService = $trackingPixelService;
+        $this->twig = $twig;
     }
 
     /**
@@ -62,6 +81,10 @@ class SitePagesService
      */
     public function buildPage($pageName)
     {
+        if (empty($pageName) || !isset($this->sitePagesConfig[$pageName])) {
+            return false;
+        }
+
         $pageConfig = $this->sitePagesConfig[$pageName];
         $sitePage = new SitePageModel($pageConfig);
 
