@@ -110,7 +110,7 @@ class TrackingPixelService
                     && count($variableConfig['options']) >= 1
                     && !in_array($configValues[$variableName], $variableConfig['options'])
                 ) {
-                    throw new \RuntimeException('The value being set for $variableName on the $pixelName pixel is invalid');
+                    throw new \RuntimeException("The value being set for $variableName on the $pixelName pixel is invalid");
                 }
                 $pixel->addPixelVar($variableName, $configValues[$variableName]);
             } else {
