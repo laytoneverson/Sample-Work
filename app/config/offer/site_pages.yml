@@ -47,7 +47,7 @@ parameters:
             page_route: '/welcome'
             page_handler: 'DisplayPage'
             page_template: 'squeeze.html.twig'
-            forward_page: pitch_main
+            forward_page: pitch_page
             exit_page: early_exit
             #page_forms: ['partial_lead']
             page_pixels:
@@ -57,12 +57,26 @@ parameters:
             #    v2: 'squeeze_page_b'
 
         pitch_page:
-            page_tab_title: 'Welcom'
+            page_tab_title: 'Welcome'
             page_route: '/home'
             page_handler: 'DisplayPage'
-            page_template: 'squeeze.html.twig'
-            forward_page: pitch_main
+            page_template: 'offer_main.html.twig'
+            forward_page: checkout_page
             exit_page: early_exit
+            #page_forms: ['partial_lead']
+            page_pixels:
+                cake.primary: { campaign_id: 123, action_event: 'page-view'}
+                google.analytics: { }
+            #version_overrides:
+            #    v2: 'squeeze_page_b'
+
+        early_exit:
+            page_tab_title: "Wait! Don't Go!"
+            page_route: '/before_you_go'
+            page_handler: 'DisplayPage'
+            page_template: 'downsale_1.html.twig'
+            forward_page: checkout_page
+            #exit_page: ''
             #page_forms: ['partial_lead']
             page_pixels:
                 cake.primary: { campaign_id: 123, action_event: 'page-view'}
