@@ -47,7 +47,7 @@ parameters:
                             - 'sell_down2'
                             - 'ell_save3'
                             - 'thank_you_page'
-                            - 'page_view'
+                            - 'page-view'
 
             convenversion_main:
                 template: cake.conversion.html.twig
