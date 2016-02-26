@@ -9,7 +9,11 @@ class DefaultController extends Controller
 {
     public function displayPageAction(Request $request)
     {
+        $sitePage = $request->getSitePage();
 
+        return $this->render("default/".$sitePage->getPageTemplate(), [
+            'page' => $sitePage,
+        ]);
     }
 
     public function submitLeadAction(Request $request)
