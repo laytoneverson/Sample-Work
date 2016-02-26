@@ -59,6 +59,7 @@ parameters:
         pitch_page:
             page_tab_title: 'Welcom'
             page_route: '/home'
+            page_handler: 'DisplayPage'
             page_template: 'squeeze.html.twig'
             forward_page: pitch_main
             exit_page: early_exit
@@ -71,6 +72,7 @@ parameters:
 
         checkout_page:
             page_route: '/checkout'
+            page_handler: 'DisplayPage'
             page_tab_title: 'Welcom Page'
             page_template: 'squeeze.html.twig'
             forward_page: upsell_one

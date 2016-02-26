@@ -39,6 +39,8 @@ class SitePagesLoader extends Loader
                     []
                 );
                 $routes->add($pageName, $route);
+            } else {
+                throw new \RuntimeException("You are missing a page_handler or page_route parameter for $pageName!");
             }
         }
 

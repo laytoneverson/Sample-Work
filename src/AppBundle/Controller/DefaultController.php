@@ -24,6 +24,12 @@ class DefaultController extends Controller
 
     public function setVersionAction(Request $request)
     {
+        $sitePage = $request->getSitePage();
+        $request->getSession()->set(
+            'SiteVersion',
+            $sitePage->getNewVersion()
+        );
 
+        return $this->redirect($sitePage->getForwardPageUrl());
     }
 }

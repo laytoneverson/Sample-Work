@@ -60,18 +60,24 @@ class SitePagesService
      * @param string $pageName
      * @return SitePageModel
      */
-    public function decoratePage($pageName)
+    public function buildPage($pageName)
     {
         $pageConfig = $this->sitePagesConfig[$pageName];
-
         $sitePage = new SitePageModel($pageConfig);
+
         if (isset($pageConfig['page_pixels'])) {
             foreach($pageConfig['page_pixels'] as $pixelName => $pagePixelVariables) {
                 $sitePage->addPagePixels($this->trackingPixelService->decoratePixel($pixelName, $pagePixelVariables));
             }
         }
 
-        dump($sitePage);die();
+        if (isset($pageConfig['forward_page'])) {
+            $sitePage->setForwardPageUrl($this->router->getGenerator()->generate($pageConfig['forward_page']));
+        }
+
+        if (isset($pageConfig['exit_page'])) {
+            $sitePage->setForwardPageUrl($this->router->getGenerator()->generate($pageConfig['exit_page']));
+        }
 
         return $sitePage;
     }
