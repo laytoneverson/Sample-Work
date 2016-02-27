@@ -38,9 +38,14 @@ class SitePagesService
     private $currentSitePage;
 
     /**
-     * @var
+     * @var EngineInterface
      */
     private $twig;
+
+    /**
+     * @var FormBuilderService
+     */
+    private $formBuilderService;
 
     /**
      * SitePagesService constructor.
@@ -48,18 +53,20 @@ class SitePagesService
      * @param TrackingPixelService $trackingPixelService
      * @param array $sitePagesConfig
      * @param EngineInterface $twig
+     * @param FormBuilderService $formBuilderService
      */
-
     public function __construct(
         Router $router,
         TrackingPixelService $trackingPixelService,
         array $sitePagesConfig,
-        EngineInterface $twig
+        EngineInterface $twig,
+        FormBuilderService $formBuilderService
     ) {
         $this->sitePagesConfig = $sitePagesConfig;
         $this->router = $router;
         $this->trackingPixelService = $trackingPixelService;
         $this->twig = $twig;
+        $this->formBuilderService = $formBuilderService;
     }
 
     /**
@@ -100,6 +107,12 @@ class SitePagesService
 
         if (isset($pageConfig['exit_page'])) {
             $sitePage->setExitPageUrl($this->router->getGenerator()->generate($pageConfig['exit_page']));
+        }
+
+        if (isset($pageConfig['page_forms'])) {
+            foreach ($pageConfig['page_forms'] as $page_form) {
+                $sitePage->addPageForm($page_form);
+            }
         }
 
         return $sitePage;

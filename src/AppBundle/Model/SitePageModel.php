@@ -2,6 +2,8 @@
 
 namespace AppBundle\Model;
 
+use Symfony\Component\Form\FormView;
+
 class SitePageModel
 {
     /**
@@ -178,11 +180,12 @@ class SitePageModel
     }
 
     /**
+     * @param string $formName
      * @return array
      */
-    public function getPageForms()
+    public function getPageForm($formName)
     {
-        return $this->pageForms;
+        return $this->pageForms[$formName];
     }
 
     /**
@@ -197,12 +200,13 @@ class SitePageModel
     }
 
     /**
-     * @param $formName
+     * @param string $formName
+     * @param FormView $formView
      * @return SitePageModel
      */
-    public function addPageForm($formName)
+    public function addPageForm($formName, FormView $formView)
     {
-        $this->pageForms[] = $formName;
+        $this->pageForms[$formName] = $formView;
 
         return $this;
     }

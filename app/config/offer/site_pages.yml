@@ -63,7 +63,7 @@ parameters:
             page_template: 'offer_main.html.twig'
             forward_page: checkout_page
             exit_page: early_exit
-            #page_forms: ['partial_lead']
+            page_forms: ['prospect_form']
             page_pixels:
                 cake.primary: { campaign_id: 123, action_event: 'page-view'}
                 google.analytics: { }
