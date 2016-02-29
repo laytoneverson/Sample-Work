@@ -2,7 +2,6 @@
 
 namespace AppBundle\Services;
 
-use AppBundle\Services\SessionStorageService;
 use Symfony\Component\Form\FormFactory;
 
 class FormBuilderService
@@ -22,19 +21,32 @@ class FormBuilderService
      */
     protected $formFactory;
 
-    public function __construct(array $siteFormsConfig, SessionStorageService $storageService, FormFactory $formFactory)
-    {
+    public function __construct(
+        array $siteFormsConfig,
+        SessionStorageService $storageService,
+        FormFactory $formFactory
+    ){
         $this->siteFormsConfig = $siteFormsConfig;
         $this->storage = $storageService;
         $this->formFactory = $formFactory;
     }
 
-    public function buildForm($form)
+    /**
+     * @param string $formName
+     * @return array
+     */
+    public function buildForm($formName)
     {
-        $formConfig = $this->siteFormsConfig[$form];
-        $data = $this->storage->getData($formConfig['model_class']);
-        $form = $this->formFactory->create($formConfig['class']);
+        $formConfig = $this->siteFormsConfig[$formName];
+        $dataClass = $formConfig['model_class'];
+        $data = $this->storage->getData($dataClass, new $dataClass);
+        $form = $this->formFactory->create($formConfig['class'], $data);
 
-        return $form->createView();
+        return [
+            'model_fqn' => $dataClass,
+            'data' => $data,
+            'form' => $form,
+            'view' => $form->createView()
+        ];
     }
 }

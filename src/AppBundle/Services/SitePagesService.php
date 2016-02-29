@@ -97,7 +97,10 @@ class SitePagesService
 
         if (isset($pageConfig['page_pixels'])) {
             foreach($pageConfig['page_pixels'] as $pixelName => $pagePixelVariables) {
-                $sitePage->addPagePixels($this->trackingPixelService->decoratePixel($pixelName, $pagePixelVariables));
+                $sitePage->addPagePixels(
+                    $pixelName,
+                    $this->trackingPixelService->decoratePixel($pixelName, $pagePixelVariables)
+                );
             }
         }
 
@@ -110,8 +113,11 @@ class SitePagesService
         }
 
         if (isset($pageConfig['page_forms'])) {
-            foreach ($pageConfig['page_forms'] as $page_form) {
-                $sitePage->addPageForm($page_form);
+            foreach ($pageConfig['page_forms'] as $pageForm) {
+                $sitePage->addPageForm(
+                    $pageForm,
+                    $this->formBuilderService->buildForm($pageForm)
+                );
             }
         }
 

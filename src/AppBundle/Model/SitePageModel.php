@@ -2,6 +2,7 @@
 
 namespace AppBundle\Model;
 
+use Symfony\Component\Form\Form;
 use Symfony\Component\Form\FormView;
 
 class SitePageModel
@@ -181,62 +182,73 @@ class SitePageModel
 
     /**
      * @param string $formName
-     * @return array
+     * @return Form
      */
     public function getPageForm($formName)
     {
-        return $this->pageForms[$formName];
-    }
-
-    /**
-     * @param array $pageForms
-     * @return SitePageModel
-     */
-    public function setPageForms($pageForms)
-    {
-        $this->pageForms = $pageForms;
-
-        return $this;
+        return $this->pageForms[$formName]['form'];
     }
 
     /**
      * @param string $formName
-     * @param FormView $formView
+     * @return string
+     */
+    public function getPageFormClass($formName)
+    {
+        return $this->pageForms[$formName]['model_fqn'];
+    }
+
+    /**
+     * @param $formName
+     * @return FormView
+     */
+    public function getPageFormView($formName)
+    {
+        return $this->pageForms[$formName]['view'];
+    }
+
+    /**
+     * @param $formName
+     * @return mixed
+     */
+    public function getPageFormData($formName)
+    {
+        return $this->pageForms[$formName]['data'];
+    }
+
+    /**
+     * @param string $formName
+     * @param array $form
      * @return SitePageModel
      */
-    public function addPageForm($formName, FormView $formView)
+    public function addPageForm($formName, array $form)
     {
-        $this->pageForms[$formName] = $formView;
+        $this->pageForms[$formName] = $form;
 
         return $this;
     }
 
     /**
-     * @return array
+     * @param string $pixelName
+     * @return array|boolean
      */
-    public function getPagePixels()
+    public function getPagePixel($pixelName)
     {
-        return $this->pagePixels;
+        if (isset($this->pagePixels[$pixelName])) {
+            return $this->pagePixels[$pixelName];
+        }
+
+        return false;
     }
 
     /**
-     * @param array $pagePixels
+     * @param string $pixelName
+     * @param PixelModel $pagePixel
      * @return SitePageModel
      */
-    public function setPagePixels($pagePixels)
+    public function addPagePixels($pixelName, PixelModel $pagePixel)
     {
-        $this->pagePixels = $pagePixels;
-
-        return $this;
-    }
-
-    /**
-     * @param $pagePixel
-     * @return SitePageModel
-     */
-    public function addPagePixels($pagePixel)
-    {
-        $this->pagePixels[] = $pagePixel;
+        $this->pagePixels[$pixelName] = $pagePixel;
 
         return $this;
     }
