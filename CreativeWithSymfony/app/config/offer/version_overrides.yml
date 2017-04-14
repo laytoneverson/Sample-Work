@@ -1,0 +1,25 @@
+# version_overrides
+#   Version overrides allow you to change configuration values based on the site version.
+#   Site versions are defined in the settings.yml. Use this config file to define blocks
+#   of variables to override and their new values. These objects are generic and can be
+#   used to override any configuration value.
+#
+# Example - Define an override names squeeze_page_b which will override the site_template and the
+#  forward page setting for split testing.
+#
+#    1. Define an override in version_override.yml (this file)
+#
+#    squeeze_page_b:
+#        site_template: 'squeeze_b.html.twig'
+#        forward_page: 'pitch_b'
+#
+#    2. Apply the override to the site_pages.squeeze_page config in site_pages.yml
+#
+#    site_pages:
+#        squeeze_page:
+#            ...
+#            version_overrides:
+#                v2: 'squeeze_page_b'
+
+parameters:
+    version_overrides:

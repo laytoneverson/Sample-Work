@@ -1,6 +1,0 @@
-# Twig Configuration
-twig:
-    debug:            "%kernel.debug%"
-    strict_variables: "%kernel.debug%"
-    globals:
-        site_config: %site_config%
